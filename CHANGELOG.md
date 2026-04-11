@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.1](https://github.com/Roberdan/convergio-depgraph/compare/convergio-depgraph-v0.1.0...convergio-depgraph-v0.1.1) (2026-04-11)
+
+
+### Features
+
+* initial convergio-depgraph from template ([ce5ba8b](https://github.com/Roberdan/convergio-depgraph/commit/ce5ba8bb2faa820d4ea6ae9fff50f6b92c192585))
+
+
+### Bug Fixes
+
+* add license exception for convergio-types custom license ([5b25a6f](https://github.com/Roberdan/convergio-depgraph/commit/5b25a6f9d1e227cc17789e9b4bc2dc01e888bb32))
+* add SDK license exceptions to deny.toml + claude settings ([bcdf819](https://github.com/Roberdan/convergio-depgraph/commit/bcdf819bd22bb09d4b3b882f39615bb7dca550ef))
+* use explicit version for release-please compatibility ([ddf60c8](https://github.com/Roberdan/convergio-depgraph/commit/ddf60c8e338b3bfc8fb634829fe0be90e9e98668))
+
 ## 0.1.0 (Initial Release)
 
 ### Features
