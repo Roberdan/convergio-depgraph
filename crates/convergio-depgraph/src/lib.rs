@@ -1,21 +1,16 @@
-//! # convergio-depgraph
+//! convergio-depgraph — Dependency graph validation, OpenAPI, capability listing.
 //!
-//! Dependency graph validation, OpenAPI generation, capability listing
-//!
-//! Part of the [Convergio](https://github.com/Roberdan/convergio) ecosystem.
+//! Validates the extension dependency graph at startup (fail-fast on cycles or
+//! missing deps), blocks unsafe module removal, checks SemVer compatibility,
+//! generates OpenAPI specs from Extension::routes(), and lists all capabilities.
 
+pub mod ext;
+pub mod graph;
+pub mod openapi;
+pub mod removal;
 pub mod routes;
+pub mod semver_check;
 
-// Uncomment as needed:
-// pub mod ext;
-// pub mod mcp_defs;
-// pub mod schema;
-// pub mod types;
-
-#[cfg(test)]
-mod tests {
-    #[test]
-    fn it_works() {
-        assert!(true);
-    }
-}
+pub use ext::DepgraphExtension;
+pub use graph::DepGraph;
+pub mod mcp_defs;

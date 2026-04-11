@@ -1,16 +1,17 @@
 [package]
 name = "convergio-depgraph"
 description = "Dependency graph validation, OpenAPI generation, capability listing"
-version = "0.1.0"
+version.workspace = true
 edition.workspace = true
 license.workspace = true
 
 [dependencies]
 convergio-types = { workspace = true }
-thiserror = { workspace = true }
+axum = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }
-tokio = { workspace = true }
 tracing = { workspace = true }
-axum = { workspace = true }
-chrono = { workspace = true }
+semver = "1"
+
+[dev-dependencies]
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "test-util"] }
