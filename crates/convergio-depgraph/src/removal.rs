@@ -1,7 +1,7 @@
 //! Module removal safety check — blocks removal if it breaks dependents.
 
 use convergio_types::manifest::Manifest;
-use std::collections::HashMap;
+use std::collections::{HashMap, HashSet};
 
 /// Result of checking whether a module can be safely removed.
 #[derive(Debug, Clone, serde::Serialize)]
@@ -27,7 +27,7 @@ pub struct BrokenDependent {
 pub fn check_removal(target_id: &str, manifests: &[Manifest]) -> RemovalCheck {
     // Find capabilities provided by target module.
     let target = manifests.iter().find(|m| m.id == target_id);
-    let provided_caps: Vec<String> = match target {
+    let provided_caps: HashSet<String> = match target {
         Some(m) => m.provides.iter().map(|c| c.name.clone()).collect(),
         None => {
             return RemovalCheck {

@@ -4,6 +4,7 @@ use std::collections::{HashMap, HashSet, VecDeque};
 
 use convergio_types::manifest::{Capability, Dependency, Manifest};
 use serde::{Deserialize, Serialize};
+use std::fmt;
 
 /// Validation error kinds produced during graph analysis.
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -24,6 +25,37 @@ pub enum GraphError {
         provided: String,
     },
 }
+
+impl fmt::Display for GraphError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Self::MissingDependency {
+                module,
+                capability,
+                version_req,
+            } => write!(
+                f,
+                "module '{module}' requires missing capability \
+                 '{capability}' ({version_req})"
+            ),
+            Self::CircularDependency { cycle } => {
+                write!(f, "circular dependency: {}", cycle.join(" -> "))
+            }
+            Self::SemVerMismatch {
+                module,
+                capability,
+                required,
+                provided,
+            } => write!(
+                f,
+                "module '{module}' requires '{capability}' {required}, \
+                 but {provided} is provided"
+            ),
+        }
+    }
+}
+
+impl std::error::Error for GraphError {}
 
 /// A node in the serializable dependency graph.
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -67,14 +99,17 @@ impl DepGraph {
     /// Build graph from a set of manifests.
     pub fn from_manifests(manifests: &[Manifest]) -> Self {
         let cap_providers = build_capability_map(manifests);
-        let mut nodes = Vec::new();
+        let mut nodes = Vec::with_capacity(manifests.len());
         let mut edges = Vec::new();
 
         for m in manifests {
             nodes.push(GraphNode {
                 id: m.id.clone(),
                 version: m.version.clone(),
-                kind: format!("{:?}", m.kind),
+                kind: serde_json::to_value(&m.kind)
+                    .ok()
+                    .and_then(|v| v.as_str().map(String::from))
+                    .unwrap_or_else(|| format!("{:?}", m.kind)),
                 provides: m.provides.clone(),
                 requires: m.requires.clone(),
             });
@@ -97,8 +132,7 @@ impl DepGraph {
     pub fn validate(manifests: &[Manifest]) -> Result<(), Vec<GraphError>> {
         let mut errors = Vec::new();
 
-        let cap_map = build_capability_map(manifests);
-        let cap_versions = build_capability_version_map(manifests);
+        let (cap_map, cap_versions) = build_capability_maps(manifests);
 
         // Check missing + semver
         for m in manifests {
@@ -143,23 +177,28 @@ impl DepGraph {
     }
 }
 
+/// Build both capability maps in a single pass over manifests:
+/// (capability name -> provider module id, capability name -> version).
+fn build_capability_maps(
+    manifests: &[Manifest],
+) -> (HashMap<String, String>, HashMap<String, String>) {
+    let mut providers = HashMap::new();
+    let mut versions = HashMap::new();
+    for m in manifests {
+        for cap in &m.provides {
+            providers.insert(cap.name.clone(), m.id.clone());
+            versions.insert(cap.name.clone(), cap.version.clone());
+        }
+    }
+    (providers, versions)
+}
+
 /// Map capability name -> provider module id.
 fn build_capability_map(manifests: &[Manifest]) -> HashMap<String, String> {
     let mut map = HashMap::new();
     for m in manifests {
         for cap in &m.provides {
             map.insert(cap.name.clone(), m.id.clone());
-        }
-    }
-    map
-}
-
-/// Map capability name -> provided version string.
-fn build_capability_version_map(manifests: &[Manifest]) -> HashMap<String, String> {
-    let mut map = HashMap::new();
-    for m in manifests {
-        for cap in &m.provides {
-            map.insert(cap.name.clone(), cap.version.clone());
         }
     }
     map
