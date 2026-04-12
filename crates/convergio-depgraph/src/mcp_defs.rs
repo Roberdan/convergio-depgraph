@@ -45,7 +45,7 @@ pub fn depgraph_tools() -> Vec<McpToolDef> {
             name: "cvg_removal_check".into(),
             description: "Check impact of removing an extension module.".into(),
             method: "GET".into(),
-            path: "/api/depgraph/removal-check/:module_id".into(),
+            path: "/api/depgraph/removal-check/{module_id}".into(),
             input_schema: json!({
                 "type": "object",
                 "properties": {"module_id": {"type": "string"}},

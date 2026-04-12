@@ -1,6 +1,7 @@
 //! SemVer compatibility checking between provided and required versions.
 
 use semver::{Version, VersionReq};
+use std::fmt;
 
 /// Error returned when a version does not satisfy a requirement.
 #[derive(Debug)]
@@ -8,6 +9,18 @@ pub struct SemVerError {
     pub provided: String,
     pub required: String,
 }
+
+impl fmt::Display for SemVerError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(
+            f,
+            "version {} does not satisfy requirement {}",
+            self.provided, self.required
+        )
+    }
+}
+
+impl std::error::Error for SemVerError {}
 
 /// Check that `provided_version` satisfies `version_req_str`.
 ///
