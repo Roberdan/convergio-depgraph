@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/Roberdan/convergio-depgraph/compare/convergio-depgraph-v0.1.2...convergio-depgraph-v0.1.3) (2026-04-12)
+
+
+### Bug Fixes
+
+* align SDK dependency to v0.1.9 for type compatibility ([17a11c7](https://github.com/Roberdan/convergio-depgraph/commit/17a11c7c514929bd6230597d5570fbdd2ca023ba))
+
 ## [0.1.2](https://github.com/Roberdan/convergio-depgraph/compare/convergio-depgraph-v0.1.1...convergio-depgraph-v0.1.2) (2026-04-12)
 
 
