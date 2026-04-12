@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/Roberdan/convergio-depgraph/compare/convergio-depgraph-v0.1.1...convergio-depgraph-v0.1.2) (2026-04-12)
+
+
+### Bug Fixes
+
+* audit improvements - error impls, perf, and axum 0.7 compat ([#2](https://github.com/Roberdan/convergio-depgraph/issues/2)) ([9daaba7](https://github.com/Roberdan/convergio-depgraph/commit/9daaba76f6c80a2036a006531853dc331312d2fe))
+
 ## [0.1.1](https://github.com/Roberdan/convergio-depgraph/compare/convergio-depgraph-v0.1.0...convergio-depgraph-v0.1.1) (2026-04-11)
 
 
