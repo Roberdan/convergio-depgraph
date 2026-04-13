@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.4](https://github.com/Roberdan/convergio-depgraph/compare/v0.1.3...v0.1.4) (2026-04-13)
+
+
+### Bug Fixes
+
+* align SDK dependency to v0.1.9 for type compatibility ([17a11c7](https://github.com/Roberdan/convergio-depgraph/commit/17a11c7c514929bd6230597d5570fbdd2ca023ba))
+* audit improvements - error impls, perf, and axum 0.7 compat ([#2](https://github.com/Roberdan/convergio-depgraph/issues/2)) ([9daaba7](https://github.com/Roberdan/convergio-depgraph/commit/9daaba76f6c80a2036a006531853dc331312d2fe))
+* **release:** use vX.Y.Z tag format (remove component) ([215404d](https://github.com/Roberdan/convergio-depgraph/commit/215404d333f87cbaef1525f62aca565e572fc4ed))
+
 ## [0.1.3](https://github.com/Roberdan/convergio-depgraph/compare/convergio-depgraph-v0.1.2...convergio-depgraph-v0.1.3) (2026-04-12)
 
 
