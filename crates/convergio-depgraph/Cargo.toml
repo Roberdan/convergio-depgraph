@@ -4,6 +4,7 @@ description = "Dependency graph validation, OpenAPI generation, capability listi
 version = "0.1.4"
 edition.workspace = true
 license.workspace = true
+repository = "https://github.com/Roberdan/convergio-depgraph"
 
 [dependencies]
 convergio-types = { workspace = true }
