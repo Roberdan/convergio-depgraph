@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/Roberdan/convergio-depgraph/compare/v0.1.4...v0.1.5) (2026-04-13)
+
+
+### Bug Fixes
+
+* add crates.io publishing metadata (description, repository) ([f40598c](https://github.com/Roberdan/convergio-depgraph/commit/f40598c59f3f5ce114bbc60a426e00b19ac3087a))
+
 ## [0.1.4](https://github.com/Roberdan/convergio-depgraph/compare/v0.1.3...v0.1.4) (2026-04-13)
 
 
