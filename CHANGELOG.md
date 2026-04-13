@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/Roberdan/convergio-depgraph/compare/v0.1.5...v0.1.6) (2026-04-13)
+
+
+### Bug Fixes
+
+* pass CARGO_REGISTRY_TOKEN to release workflow ([a9df573](https://github.com/Roberdan/convergio-depgraph/commit/a9df5739798a17cf619df749bf267d62c980d72b))
+
 ## [0.1.5](https://github.com/Roberdan/convergio-depgraph/compare/v0.1.4...v0.1.5) (2026-04-13)
 
 
