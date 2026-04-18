@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.7](https://github.com/Roberdan/convergio-depgraph/compare/v0.1.6...v0.1.7) (2026-04-18)
+
+
+### Features
+
+* **routes:** mount /api/capabilities/:name detail handler ([a947acb](https://github.com/Roberdan/convergio-depgraph/commit/a947acb1ed9ed2d92afea9edb274c6270a56cf92))
+
 ## [0.1.6](https://github.com/Roberdan/convergio-depgraph/compare/v0.1.5...v0.1.6) (2026-04-13)
 
 
