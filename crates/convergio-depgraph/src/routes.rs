@@ -1,6 +1,7 @@
 //! HTTP routes for depgraph: graph JSON, capabilities, OpenAPI, removal check.
 
 use axum::extract::Path;
+use axum::http::StatusCode;
 use axum::routing::get;
 use axum::{Json, Router};
 use convergio_types::manifest::Manifest;
@@ -31,6 +32,7 @@ pub fn router(state: DepgraphState) -> Router {
         .route("/api/depgraph", get(graph_handler))
         .route("/api/depgraph/validate", get(validate_handler))
         .route("/api/capabilities", get(capabilities_handler))
+        .route("/api/capabilities/:name", get(capability_detail_handler))
         .route("/api/openapi", get(openapi_handler))
         .route(
             "/api/depgraph/removal-check/{module_id}",
@@ -100,6 +102,31 @@ async fn openapi_handler(axum::Extension(state): axum::Extension<DepgraphState>)
     let spec = openapi::generate(&state.manifests);
     Json(spec)
 }
+
+async fn capability_detail_handler(
+    axum::Extension(state): axum::Extension<DepgraphState>,
+    Path(name): Path<String>,
+) -> Result<Json<Value>, (StatusCode, Json<Value>)> {
+    for m in state.manifests.iter() {
+        if let Some(cap) = m.provides.iter().find(|c| c.name == name) {
+            return Ok(Json(json!({
+                "ok": true,
+                "module": &m.id,
+                "name": &cap.name,
+                "version": &cap.version,
+                "description": &cap.description,
+            })));
+        }
+    }
+    Err((
+        StatusCode::NOT_FOUND,
+        Json(json!({
+            "ok": false,
+            "error": format!("capability '{name}' not found"),
+        })),
+    ))
+}
+
 
 async fn removal_check_handler(
     axum::Extension(state): axum::Extension<DepgraphState>,

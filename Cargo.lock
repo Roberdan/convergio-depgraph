@@ -158,7 +158,7 @@ dependencies = [
 
 [[package]]
 name = "convergio-depgraph"
-version = "0.1.6"
+version = "0.1.7"
 dependencies = [
  "axum",
  "convergio-types",
