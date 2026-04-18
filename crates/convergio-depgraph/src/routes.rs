@@ -127,7 +127,6 @@ async fn capability_detail_handler(
     ))
 }
 
-
 async fn removal_check_handler(
     axum::Extension(state): axum::Extension<DepgraphState>,
     Path(module_id): Path<String>,
